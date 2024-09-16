@@ -78,7 +78,8 @@ def discrep(U, s, V, b, delta, x_0 = None):
                 lambda_[k] = newton(lambda_0, delta[k], s, beta, omega, delta_0)
                 e = s / (s2 + lambda_[k]**2)
                 f = s * e
-                x_delta[:, k] = np.dot(np.transpose(V[:, :p]), e*beta + (1-f)*omega)
+                # x_delta[:, k] = np.dot(np.transpose(V[:, :p]), e*beta + (1-f)*omega)
+                x_delta[:, k] = np.transpose(V[:, :p]) @ (e*beta + (1-f)*omega) 
     # NOT TESTED
     elif m >= n:
         omega = omega[:p]
@@ -93,7 +94,8 @@ def discrep(U, s, V, b, delta, x_0 = None):
                 lambda_[k] = newton(lambda_0, delta[k], s, beta[:p], omega, delta_0)
                 e = gamma / (gamma**2 + lambda_[k]**2)
                 f = gamma * e
-                x_delta[:, k] = np.dot(V[:, :p], e*beta[:p]/s[:, 1] + (1-f)*s[:, 1]*omega) + x_u 
+                # x_delta[:, k] = np.dot(V[:, :p], e*beta[:p]/s[:, 1] + (1-f)*s[:, 1]*omega) + x_u 
+                x_delta[:, k] = np.transpose(V[:, :p]) @ (e*beta[:p]/s[:, 1] + (1-f)*s[:, 1]*omega) + x_u 
     # NOT TESTED
     else:
         omega = omega[:p]
@@ -108,7 +110,8 @@ def discrep(U, s, V, b, delta, x_0 = None):
                 lambda_[k] = newton(lambda_0, delta[k], s, beta[:p], omega, delta_0)
                 e = gamma / (gamma**2 + lambda_[k]**2)
                 f = gamma * e
-                x_delta[:, k] = np.dot(V[:, :p], e*beta[:p]/s[:, 1] + (1-f)*s[:, 1]*omega) + x_u
+                # x_delta[:, k] = np.dot(V[:, :p], e*beta[:p]/s[:, 1] + (1-f)*s[:, 1]*omega) + x_u
+                x_delta[:, k] = np.transpose(V[:, :p]) @ (e*beta[:p]/s[:, 1] + (1-f)*s[:, 1]*omega) + x_u
 
     return x_delta, lambda_
 
@@ -168,10 +171,6 @@ def newton(lambda_0, delta, s, beta, omega, delta_0):
         step = (lambda_ / 4) * (np.dot(r.T, r) + (delta_0 + delta) * (delta_0 - delta)) / np.dot(z.T, r)
         lambda_ -= step
 
-        # print('lambda_:', lambda_, 'step:', step, 'it:', it)
-        # print('f:', f, 'r:', r, 'z:', z)
-        # time.sleep(10)
-        # print('Resume')
         # % If lambda < 0 then restart with smaller initial guess.
         if lambda_ < 0:
             lambda_ = 0.5 * lambda_0

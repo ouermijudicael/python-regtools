@@ -161,3 +161,5 @@ def l_curve(U, sm, b, method='Tikh', L=None, V=None):
         plt.loglog([min(rho)/100,rho_c],[eta_c,eta_c],':r', [rho_c,rho_c],[min(eta)/100,eta_c],':r')
         # ax.loglog([min(rho)/100,rho_c],[eta_c,eta_c],':r', [rho_c,rho_c],[min(eta)/100,eta_c],':r')
         plt.title(f'L-curve, {txt} corner at {reg_corner}')
+
+    return reg_corner, rho, eta, reg_param
