@@ -1,26 +1,24 @@
 import numpy as np
 
 def gravity(n, example=1, a=0, b=1, d=0.25):
-    """
-    Discretization of a 1-D model problem in gravity surveying, in which
-    a mass distribution f(t) is located at depth d, while the vertical
-    component of the gravity field g(s) is measured at the surface.
+    # Discretization of a 1-D model problem in gravity surveying, in which
+    # a mass distribution f(t) is located at depth d, while the vertical
+    # component of the gravity field g(s) is measured at the surface.
 
-    The problem is a first-kind Fredholm integral equation with kernel:
-        K(s,t) = d * (d^2 + (s-t)^2)^(-3/2)
+    # The problem is a first-kind Fredholm integral equation with kernel:
+    #     K(s,t) = d * (d^2 + (s-t)^2)^(-3/2)
 
-    Parameters:
-    n       : Number of points for discretization.
-    example : Defines the type of function for x (default: 1).
-    a       : Left boundary of the s integration interval (default: 0).
-    b       : Right boundary of the s integration interval (default: 1).
-    d       : Depth at which the magnetic deposit is located (default: 0.25).
+    # Parameters:
+    # n       : Number of points for discretization.
+    # example : Defines the type of function for x (default: 1).
+    # a       : Left boundary of the s integration interval (default: 0).
+    # b       : Right boundary of the s integration interval (default: 1).
+    # d       : Depth at which the magnetic deposit is located (default: 0.25).
 
-    Returns:
-    A       : Discretized matrix for the Fredholm equation.
-    b       : Right-hand side vector.
-    x       : Solution vector.
-    """
+    # Returns:
+    # A       : Discretized matrix for the Fredholm equation.
+    # b       : Right-hand side vector.
+    # x       : Solution vector.
 
     # Set up abscissas and matrix
     dt = 1 / n

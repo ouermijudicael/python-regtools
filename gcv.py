@@ -27,7 +27,6 @@ def gcv(U,s,b,method=None):
 # If any output arguments are specified, then the minimum of G is
 # identified and the corresponding reg. parameter reg_min is returned.
 
-# Per Christian Hansen, DTU Compute, Dec. 16, 2003.
 
 # Reference: G. Wahba, "Spline Models for Observational Data",
 # SIAM, 1990.

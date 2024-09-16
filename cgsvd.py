@@ -3,32 +3,32 @@ from scipy.linalg import svd
 from gsvd import gsvd
 
 def cgsvd(A,L):
-# %CGSVD Compact generalized SVD (GSVD) of a matrix pair in regularization problems.
-# %
-# % sm = cgsvd(A,L)
-# % [U,sm,X,V] = cgsvd(A,L) ,  sm = [sigma,mu]
-# % [U,sm,X,V,W] = cgsvd(A,L) ,  sm = [sigma,mu]
-# %
-# % Computes the generalized SVD of the matrix pair (A,L). The dimensions of
-# % A and L must be such that [A;L] does not have fewer rows than columns.
-# %
-# % If m >= n >= p then the GSVD has the form:
-# %    [ A ] = [ U  0 ]*[ diag(sigma)      0    ]*inv(X)
-# %    [ L ]   [ 0  V ] [      0       eye(n-p) ]
-# %                     [  diag(mu)        0    ]
-# % where
-# %    U  is  m-by-n ,    sigma  is  p-by-1
-# %    V  is  p-by-p ,    mu     is  p-by-1
-# %    X  is  n-by-n .
-# %
-# % Otherwise the GSVD has a more complicated form (see manual for details).
-# %
-# % A possible fifth output argument returns W = inv(X).
- 
-# % Reference: C. F. Van Loan, "Computing the CS and the generalized 
-# % singular value decomposition", Numer. Math. 46 (1985), 479-491. 
- 
-# % Per Christian Hansen, DTU Compute, August 22, 2009. 
+    # %CGSVD Compact generalized SVD (GSVD) of a matrix pair in regularization problems.
+    # %
+    # % sm = cgsvd(A,L)
+    # % [U,sm,X,V] = cgsvd(A,L) ,  sm = [sigma,mu]
+    # % [U,sm,X,V,W] = cgsvd(A,L) ,  sm = [sigma,mu]
+    # %
+    # % Computes the generalized SVD of the matrix pair (A,L). The dimensions of
+    # % A and L must be such that [A;L] does not have fewer rows than columns.
+    # %
+    # % If m >= n >= p then the GSVD has the form:
+    # %    [ A ] = [ U  0 ]*[ diag(sigma)      0    ]*inv(X)
+    # %    [ L ]   [ 0  V ] [      0       eye(n-p) ]
+    # %                     [  diag(mu)        0    ]
+    # % where
+    # %    U  is  m-by-n ,    sigma  is  p-by-1
+    # %    V  is  p-by-p ,    mu     is  p-by-1
+    # %    X  is  n-by-n .
+    # %
+    # % Otherwise the GSVD has a more complicated form (see manual for details).
+    # %
+    # % A possible fifth output argument returns W = inv(X).
+    
+    # % Reference: C. F. Van Loan, "Computing the CS and the generalized 
+    # % singular value decomposition", Numer. Math. 46 (1985), 479-491. 
+    
+
 
     # Initialization. 
     m,n = A.shape

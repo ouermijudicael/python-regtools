@@ -137,7 +137,6 @@ def newton(lambda_0, delta, s, beta, omega, delta_0):
     # % Reference: V. A. Morozov, "Methods for Solving Incorrectly Posed
     # % Problems", Springer, 1984; Chapter 26.
 
-    # % Per Christian Hansen, IMM, 12/29/97.
 
     # % Set defaults.
     thr = np.sqrt(np.finfo(float).eps)  # Relative stopping criterion.

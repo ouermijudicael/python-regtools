@@ -2,23 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def corner(rho, eta, fig=None):
-    """
-    Find corner of discrete L-curve via adaptive pruning algorithm.
+    # Find corner of discrete L-curve via adaptive pruning algorithm.
 
-    Parameters:
-    rho : array-like
-        Residual norm || A x - b ||.
-    eta : array-like
-        Solution's (semi)norm || x || or || L x ||.
-    fig : int, optional
-        If provided, a figure will show the discrete L-curve in log-log scale and indicate the found corner.
+    # Parameters:
+    # rho : array-like
+    #     Residual norm || A x - b ||.
+    # eta : array-like
+    #     Solution's (semi)norm || x || or || L x ||.
+    # fig : int, optional
+    #     If provided, a figure will show the discrete L-curve in log-log scale and indicate the found corner.
 
-    Returns:
-    k_corner : int
-        Index of the corner of the L-curve.
-    info : int
-        Information about possible warnings.
-    """
+    # Returns:
+    # k_corner : int
+    #     Index of the corner of the L-curve.
+    # info : int
+    #     Information about possible warnings.
+
     if len(rho) != len(eta):
         raise ValueError('Vectors rho and eta must have the same length')
     if len(rho) < 3:

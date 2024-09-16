@@ -2,22 +2,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def plot_lc(rho, eta, marker='-', ps=1, reg_param=None):
-    """
-    Plot the L-curve.
+    # Plot the L-curve.
 
-    Parameters:
-    rho : array-like
-        Residual norm || A x - b ||.
-    eta : array-like
-        Solution norm || x || if ps = 1, or || L x || if ps = 2.
-    marker : str, optional
-        Marker style for the plot. Default is '-'.
-    ps : int, optional
-        Indicates the type of solution norm. Default is 1.
-    reg_param : array-like, optional
-        Regularization parameters corresponding to rho and eta.
+    # Parameters:
+    # rho : array-like
+    #     Residual norm || A x - b ||.
+    # eta : array-like
+    #     Solution norm || x || if ps = 1, or || L x || if ps = 2.
+    # marker : str, optional
+    #     Marker style for the plot. Default is '-'.
+    # ps : int, optional
+    #     Indicates the type of solution norm. Default is 1.
+    # reg_param : array-like, optional
+    #     Regularization parameters corresponding to rho and eta.
 
-    """
     if ps < 1 or ps > 2:
         raise ValueError('Illegal value of ps')
 
