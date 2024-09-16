@@ -1,29 +1,27 @@
 import numpy as np
 
 def tsvd(U, s, V, b, k):
-    """
-    Truncated SVD regularization.
+    # Truncated SVD regularization.
 
-    Parameters:
-    U : numpy.ndarray
-        Left singular vectors from the SVD.
-    s : numpy.ndarray
-        Singular values from the SVD.
-    V : numpy.ndarray
-        Right singular vectors from the SVD.
-    b : numpy.ndarray
-        Right-hand side vector.
-    k : int or list of int
-        Truncation parameter. If k is a list, the output will be a matrix.
+    # Parameters:
+    # U : numpy.ndarray
+    #     Left singular vectors from the SVD.
+    # s : numpy.ndarray
+    #     Singular values from the SVD.
+    # V : numpy.ndarray
+    #     Right singular vectors from the SVD.
+    # b : numpy.ndarray
+    #     Right-hand side vector.
+    # k : int or list of int
+    #     Truncation parameter. If k is a list, the output will be a matrix.
 
-    Returns:
-    x_k : numpy.ndarray
-        Truncated SVD solution.
-    rho : numpy.ndarray
-        Residual norms.
-    eta : numpy.ndarray
-        Solution norms.
-    """
+    # Returns:
+    # x_k : numpy.ndarray
+    #     Truncated SVD solution.
+    # rho : numpy.ndarray
+    #     Residual norms.
+    # eta : numpy.ndarray
+    #     Solution norms.
 
     # Initialization
     n, p = V.shape

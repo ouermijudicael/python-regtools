@@ -1,31 +1,29 @@
 import numpy as np
 
 def tikhonov(U, s, V, b, lambdas, x_0=None):
-    """
-    Tikhonov regularization.
+    # Tikhonov regularization.
 
-    Parameters:
-    U : numpy.ndarray
-        Left singular vectors from the SVD.
-    s : numpy.ndarray or tuple of numpy.ndarray
-        Singular values from the SVD or GSVD.
-    V : numpy.ndarray
-        Right singular vectors from the SVD.
-    b : numpy.ndarray
-        Right-hand side vector.
-    lambdas : numpy.ndarray or list
-        Regularization parameter(s). Can be a scalar or a list.
-    x_0 : numpy.ndarray, optional
-        Initial estimate (default is None, equivalent to zero).
+    # Parameters:
+    # U : numpy.ndarray
+    #     Left singular vectors from the SVD.
+    # s : numpy.ndarray or tuple of numpy.ndarray
+    #     Singular values from the SVD or GSVD.
+    # V : numpy.ndarray
+    #     Right singular vectors from the SVD.
+    # b : numpy.ndarray
+    #     Right-hand side vector.
+    # lambdas : numpy.ndarray or list
+    #     Regularization parameter(s). Can be a scalar or a list.
+    # x_0 : numpy.ndarray, optional
+    #     Initial estimate (default is None, equivalent to zero).
 
-    Returns:
-    x_lambda : numpy.ndarray
-        Tikhonov regularized solution.
-    rho : numpy.ndarray
-        Residual norms.
-    eta : numpy.ndarray
-        Solution norms or seminorms.
-    """
+    # Returns:
+    # x_lambda : numpy.ndarray
+    #     Tikhonov regularized solution.
+    # rho : numpy.ndarray
+    #     Residual norms.
+    # eta : numpy.ndarray
+    #     Solution norms or seminorms.
     
     lambdas = np.array(lambdas)
     if np.any(lambdas < 0):

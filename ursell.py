@@ -2,18 +2,16 @@ import numpy as np
 from scipy.linalg import hankel
 
 def ursell(n):
-    """
-    Ursell test problem: integral equation with no square integrable solution.
+    # Ursell test problem: integral equation with no square integrable solution.
     
-    Discretization of a first kind Fredholm integral equation with
-    kernel K and right-hand side g given by:
-        K(s,t) = 1/(s+t+1),  g(s) = 1,
-    where both integration intervals are [0,1].
+    # Discretization of a first kind Fredholm integral equation with
+    # kernel K and right-hand side g given by:
+    #     K(s,t) = 1/(s+t+1),  g(s) = 1,
+    # where both integration intervals are [0,1].
 
-    Returns:
-    A -- matrix resulting from discretization
-    b -- right-hand side vector
-    """
+    # Returns:
+    # A -- matrix resulting from discretization
+    # b -- right-hand side vector
     
     # Initialize r and c as zeros
     r = np.zeros(n)

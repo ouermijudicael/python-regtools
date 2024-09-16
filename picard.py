@@ -2,18 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def picard(U, s, b, d=0):
-    """
-    Visual inspection of the Picard condition.
+    # Visual inspection of the Picard condition.
 
-    Parameters:
-    U (ndarray): Left singular vectors.
-    s (ndarray): Singular values or generalized singular values.
-    b (ndarray): Right-hand side vector.
-    d (int): Smoothing parameter. Default is 0 (no smoothing).
+    # Parameters:
+    # U (ndarray): Left singular vectors.
+    # s (ndarray): Singular values or generalized singular values.
+    # b (ndarray): Right-hand side vector.
+    # d (int): Smoothing parameter. Default is 0 (no smoothing).
 
-    Returns:
-    eta (ndarray): Solution coefficients.
-    """
+    # Returns:
+    # eta (ndarray): Solution coefficients.
+
     n = len(s) if s.ndim == 1 else s.shape[0]
     ps = 1 if s.ndim == 1 else s.shape[1]
     beta = np.abs(U[:, :n].T @ b)

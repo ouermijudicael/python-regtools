@@ -245,10 +245,11 @@ plt.plot(lambda_)
 plt.title('lambda')
 plt.show() # uncomment to show plot
 
-# try ncp
+# example using  ncp
 regmin, dist, regparam = ncp(U, s, b)
+plt.show() # uncomment to show plot
 
-# # # Example usage
+# phillips example
 A, b, x = phillips(100)
 # print('b:', b)
 plt.subplot(1, 3, 1)
