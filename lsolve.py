@@ -22,12 +22,18 @@ def lsolve(L, y, W, T):
     import numpy as np
     p, n = L.shape
     nu = n - p
-    ly = y.shape[1]
+    if (len(y.shape) == 1):
+        ly = 1
+    else:
+        ly = y.shape[1]
 
     if nu == 0:
         return np.linalg.solve(L, y)
 
     x = np.linalg.solve(L[:, :p], y)
-    x = np.vstack([x, np.zeros((nu, ly))]) - W @ (T[:, :p] @ x)
+    if ly == 1:
+        x = np.hstack([x, np.zeros(nu)]) - W @ (T[:, :p] @ x)
+    else:
+        x = np.vstack([x, np.zeros((nu, ly))]) - W @ (T[:, :p] @ x)
 
     return x

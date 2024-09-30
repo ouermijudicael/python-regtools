@@ -93,7 +93,7 @@ def plsqr_b(A, L, W, b, k, reorth=0, sm=None):
     u = b / beta
     if UV:
         U[:, 0] = u
-    r = A.T @ u
+    r = ltsolve(L, A.T @ u, W, NAA)
     alpha = np.linalg.norm(r)
     v = r / alpha
     if UV:
@@ -110,7 +110,8 @@ def plsqr_b(A, L, W, b, k, reorth=0, sm=None):
         alpha_old = alpha
         beta_old = beta
 
-        p = A @ v - alpha * u
+        # Compute (A*L_p)*v - alpha*u.
+        p = A @ lsolve(L, v, W, NAA) - alpha * u
         if reorth == 0:
             beta = np.linalg.norm(p)
             u = p / beta

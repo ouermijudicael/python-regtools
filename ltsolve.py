@@ -1,4 +1,4 @@
-def ltsolve(L, y, W, T):
+def ltsolve(L, y, W=None, T=None):
 # LTSOLVE Utility routine for "preconditioned" iterative methods.
 # 
 # x = ltsolve(L,y,W,T)
@@ -24,12 +24,14 @@ def ltsolve(L, y, W, T):
 
     p, n = L.shape
     nu = n - p
-
+    # print ('nu:', nu, 'p:', p, 'n:', n)
     if nu == 0:
         return np.linalg.solve(L.T, y)
     
-    y = y[:p] - T[:, :p].T @ (W.T @ y)
-    x = np.linalg.solve(L[:, :p].T, y)
+    if W is not None and T is not None:
+        y = y[:p] - T[:, :p].T @ (W.T @ y)
+    x = np.linalg.solve(L[:, :p].T, y[:p])
+
     
     return x
 

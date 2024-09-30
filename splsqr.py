@@ -29,7 +29,7 @@ def splsqr(A, b, lambda_, Vsp, maxit=None, tol=None, reorth= None):
 #   storage of Vsp should be avoided.  See the reference for details.
 
 #   Reference: M. Jacobsen, P. C. Hansen and M. A. Saunders, "Subspace pre-
-#   conditioned LSQR for discrete ill-posed problems", BIT 43 (2003), 975-989.
+#  conditioned LSQR for discrete ill-posed problems", BIT 43 (2003), 975-989.
 
 
     # Input check.
@@ -52,7 +52,7 @@ def splsqr(A, b, lambda_, Vsp, maxit=None, tol=None, reorth= None):
         VV = np.zeros((n, maxit))
 
     # Initial QR factorization of [A;lamnda*eye(n)]*Vsp;
-    QQ = np.linalg.qr(np.vstack((A @ Vsp, lambda_ * Vsp)))
+    _, QQ = np.linalg.qr(np.vstack((A @ Vsp, lambda_ * Vsp)))
 
     # Prepare for LSQR iterations.
     u = app_house_t(QQ, np.hstack((b, z)))
@@ -76,6 +76,7 @@ def splsqr(A, b, lambda_, Vsp, maxit=None, tol=None, reorth= None):
         VV[:, 0] = v
 
 
+    x = np.zeros((n, maxit))
     # Iterate.
     for i in range(maxit):
         # beta*u = A*v - alpha*u;
@@ -139,30 +140,40 @@ def app_house(H,X):
     
     n, p = H.shape
     Y = X
-    for k in range(p):
-        v = np.ones(n + 1 - k)
-        v[1:n + 1 - k] = H[k + 1:n, k]
-        beta = 2 / (v @ v)
-        Y[k:n] = Y[k:n] - beta * v @ (v @ Y[k:n])
+    if(len(Y.shape) == 1):
+        Y = np.reshape(Y, (Y.shape[0], 1))
 
-    return Y
+    for k in range(p):
+        v = np.ones((n + 1 - (k+1),1))
+        v[1:n + 1 - (k+1),0] = H[k+1:n, k]
+        beta = 2 / (v.T @ v)
+        Y[k:n] = Y[k:n] - beta * v @ (v.T @ Y[k:n])
+
+    return np.reshape(Y, (Y.shape[0],))
 
 
 # -----------------------------------------------------------------
-def app_house_t(H,X):
-# Y = app_house_t(H,X)
-# Input:  H = matrix containing the necessary information of the
-#              Householder vectors v in the lower triangle and R in
-#              the upper triangle; e.g., computed as H = qr(A).
-#         X = matrix to be multiplied with transposed orthogonal matrix.
-# Output: Y = Q'*X
+
+def app_house_t(H, X):
+# % Y = app_house_t(H,X)
+# % Input:  H = matrix containing the necessary information of the
+# %             Householder vectors v in the lower triangle and R in
+# %             the upper triangle; e.g., computed as H = qr(A).
+# %         X = matrix to be multiplied with transposed orthogonal matrix.
+# % Output: Y = Q'*X
 
     n, p = H.shape
     Y = X
-    for k in range(p - 1, -1, -1):
-        v = np.ones(n + 1 - k)
-        v[1:n + 1 - k] = H[k + 1:n, k]
-        beta = 2 / (v @ v)
-        Y[k:n] = Y[k:n] - beta * v @ (v @ Y[k:n])
+    if(len(Y.shape) == 1):
+        Y = np.reshape(Y, (Y.shape[0], 1))
 
-    return Y
+    for k in range(p):
+        v = np.ones((n + 1 - (k+1), 1))
+        v[1:n + 1 - (k+1), 0] = H[k+1:n, k]
+        beta = 2 / (v.T @ v)
+        Y[k:n, :] = Y[k:n, :] - beta * v @ (v.T @ Y[k:n, :])
+
+    # reshape Y back to a vector if X was a vector
+    return np.reshape(Y, (Y.shape[0],))
+
+
