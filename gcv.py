@@ -5,32 +5,33 @@ from gcvfun import gcvfun
 
 
 def gcv(U,s,b,method=None):
-# GCV Plot the GCV function and find its minimum.
-#
-# [reg_min,G,reg_param] = gcv(U,s,b,method)
-# [reg_min,G,reg_param] = gcv(U,sm,b,method)  ,  sm = [sigma,mu]
-#
-# Plots the GCV-function
-#          || A*x - b ||^2
-#    G = -------------------
-#        (trace(I - A*A_I)^2
-# as a function of the regularization parameter reg_param. Here, A_I is a
-# matrix which produces the regularized solution.
-#
-# The following methods are allowed:
-#    method = 'Tikh' : Tikhonov regularization   (solid line )
-#    method = 'tsvd' : truncated SVD or GSVD     (o markers  )
-#    method = 'dsvd' : damped SVD or GSVD        (dotted line)
-# If method is not specified, 'Tikh' is default.  U and s, or U and sm,
-# must be computed by the functions csvd and cgsvd, respectively.
-#
-# If any output arguments are specified, then the minimum of G is
-# identified and the corresponding reg. parameter reg_min is returned.
+    """
+    GCV Plot the GCV function and find its minimum.
+
+    [reg_min,G,reg_param] = gcv(U,s,b,method)
+    [reg_min,G,reg_param] = gcv(U,sm,b,method)  ,  sm = [sigma,mu]
+
+    Plots the GCV-function
+            || A*x - b ||^2
+    G = -------------------
+        (trace(I - A*A_I)^2
+    as a function of the regularization parameter reg_param. Here, A_I is a
+    matrix which produces the regularized solution.
+
+    The following methods are allowed:
+    method = 'Tikh' : Tikhonov regularization   (solid line )
+    method = 'tsvd' : truncated SVD or GSVD     (o markers  )
+    method = 'dsvd' : damped SVD or GSVD        (dotted line)
+    If method is not specified, 'Tikh' is default.  U and s, or U and sm,
+    must be computed by the functions csvd and cgsvd, respectively.
+
+    If any output arguments are specified, then the minimum of G is
+    identified and the corresponding reg. parameter reg_min is returned.
 
 
-# Reference: G. Wahba, "Spline Models for Observational Data",
-# SIAM, 1990.
-
+    Reference: G. Wahba, "Spline Models for Observational Data",
+    SIAM, 1990.
+    """
     # Set defaults
     if method is None:
         method = 'Tikh' # Default method.

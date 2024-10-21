@@ -4,30 +4,31 @@ from scipy.optimize import fminbound
 from ncpfun import ncpfun
 
 def ncp(U, s, b, method='Tikh'):
+    """
+    NCP Plot the NCPs and find the one closest to a straight line.
+    
+    [reg_min,G,reg_param] = ncp(U,s,b,method)
+    [reg_min,G,reg_param] = ncp(U,sm,b,method)  ,  sm = [sigma,mu]
+    
+    Plots the normalized cumulative priodograms (NCPs) for the residual
+    vectors A*x - b.  The following methods are allowed:
+        method = 'Tikh' : Tikhonov regularization
+        method = 'tsvd' : truncated SVD or GSVD
+        method = 'dsvd' : damped SVD or GSVD
+    If method is not specified, 'Tikh' is default.  U and s, or U and sm,
+    must be computed by the functions csvd and cgsvd, respectively.
+    
+    The NCP closest to a straight line is identified and the corresponding
+    regularization parameter reg_min is returned.  Moreover, dist holds the
+    distances to the straight line, and reg_param are the corresponding
+    regularization parameters.
 
-# %NCP Plot the NCPs and find the one closest to a straight line.
-# %
-# % [reg_min,G,reg_param] = ncp(U,s,b,method)
-# % [reg_min,G,reg_param] = ncp(U,sm,b,method)  ,  sm = [sigma,mu]
-# %
-# % Plots the normalized cumulative priodograms (NCPs) for the residual
-# % vectors A*x - b.  The following methods are allowed:
-# %    method = 'Tikh' : Tikhonov regularization
-# %    method = 'tsvd' : truncated SVD or GSVD
-# %    method = 'dsvd' : damped SVD or GSVD
-# % If method is not specified, 'Tikh' is default.  U and s, or U and sm,
-# % must be computed by the functions csvd and cgsvd, respectively.
-# %
-# % The NCP closest to a straight line is identified and the corresponding
-# % regularization parameter reg_min is returned.  Moreover, dist holds the
-# % distances to the straight line, and reg_param are the corresponding
-# % regularization parameters.
+    Per Christian Hansen, DTU Compute, Jan. 4, 2008.
 
-# % Per Christian Hansen, DTU Compute, Jan. 4, 2008.
-
-# % Reference: P. C. Hansen, M. Kilmer & R. H. Kjeldsen, "Exploiting
-# % residual information in the parameter choice for discrete ill-posed
-# % problems", BIT 46 (2006), 41-59.
+    Reference: P. C. Hansen, M. Kilmer & R. H. Kjeldsen, "Exploiting
+    residual information in the parameter choice for discrete ill-posed
+    problems", BIT 46 (2006), 41-59.
+    """
 
     # Set defaults
     npoints = 200

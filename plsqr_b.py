@@ -1,33 +1,34 @@
 def plsqr_b(A, L, W, b, k, reorth=0, sm=None):
-# PLSQR_B "Precond." version of the LSQR Lanczos bidiagonalization algorithm.
-# 
-# [X,rho,eta,F] = plsqr_b(A,L,W,b,k,reorth,sm)
-#
-# Performs k steps of the `preconditioned' LSQR Lanczos
-# bidiagonalization algorithm applied to the system
-#    min || (A*L_p) x - b || ,
-# where L_p is the A-weighted generalized inverse of L.  Notice
-# that the matrix W holding a basis for the null space of L must
-# also be specified.
-#
-# The routine returns all k solutions, stored as columns of
-# the matrix X.  The solution seminorm and the residual norm are
-# returned in eta and rho, respectively.
-#
-# If the generalized singular values sm of (A,L) are also provided,
-#  then glsqr computes the filter factors associated with each step
-# and stores them columnwise in the matrix F.
-#
-# Reorthogonalization is controlled by means of reorth:
-#    reorth = 0 : no reorthogonalization (default),
-#    reorth = 1 : reorthogonalization by means of MGS
+    """
+    PLSQR_B "Precond." version of the LSQR Lanczos bidiagonalization algorithm.
 
-# References: C. C. Paige & M. A. Saunders, "LSQR: an algorithm for
-# sparse linear equations and sparse least squares", ACM Trans.
-# Math. Software 8 (1982), 43-71.
-# P. C. Hansen, "Rank-Deficient and Discrete Ill-Posed Problems.
-# Numerical Aspects of Linear Inversion", SIAM, Philadelphia, 1997.
+    [X,rho,eta,F] = plsqr_b(A,L,W,b,k,reorth,sm)
 
+    Performs k steps of the `preconditioned' LSQR Lanczos
+    bidiagonalization algorithm applied to the system
+    min || (A*L_p) x - b || ,
+    where L_p is the A-weighted generalized inverse of L.  Notice
+    that the matrix W holding a basis for the null space of L must
+    also be specified.
+
+    The routine returns all k solutions, stored as columns of
+    the matrix X.  The solution seminorm and the residual norm are
+    returned in eta and rho, respectively.
+
+    If the generalized singular values sm of (A,L) are also provided,
+    then glsqr computes the filter factors associated with each step
+    and stores them columnwise in the matrix F.
+
+    Reorthogonalization is controlled by means of reorth:
+    reorth = 0 : no reorthogonalization (default),
+    reorth = 1 : reorthogonalization by means of MGS
+
+    References: C. C. Paige & M. A. Saunders, "LSQR: an algorithm for
+    sparse linear equations and sparse least squares", ACM Trans.
+    Math. Software 8 (1982), 43-71.
+    P. C. Hansen, "Rank-Deficient and Discrete Ill-Posed Problems.
+    Numerical Aspects of Linear Inversion", SIAM, Philadelphia, 1997.
+    """
     import numpy as np
     from pinit import pinit
     from ltsolve import ltsolve

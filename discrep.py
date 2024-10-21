@@ -1,30 +1,30 @@
 import numpy as np
 import time as time
 def discrep(U, s, V, b, delta, x_0 = None):
-    # function [x_delta,lambda] = discrep(U,s,V,b,delta,x_0)
-    # %DISCREP Discrepancy principle criterion for choosing the reg. parameter.
-    # %
-    # % [x_delta,lambda] = discrep(U,s,V,b,delta,x_0)
-    # % [x_delta,lambda] = discrep(U,sm,X,b,delta,x_0)  ,  sm = [sigma,mu]
-    # %
-    # % Least squares minimization with a quadratic inequality constraint:
-    # %    min || x - x_0 ||       subject to   || A x - b || <= delta
-    # %    min || L (x - x_0) ||   subject to   || A x - b || <= delta
-    # % where x_0 is an initial guess of the solution, and delta is a
-    # % positive constant.  Requires either the compact SVD of A saved as
-    # % U, s, and V, or part of the GSVD of (A,L) saved as U, sm, and X.
-    # % The regularization parameter lambda is also returned.
-    # %
-    # % If delta is a vector, then x_delta is a matrix such that
-    # %    x_delta = [ x_delta(1), x_delta(2), ... ] .
-    # %
-    # % If x_0 is not specified, x_0 = 0 is used.
+    """
+    function [x_delta,lambda] = discrep(U,s,V,b,delta,x_0)
+     DISCREP Discrepancy principle criterion for choosing the reg. parameter.
+     
+      [x_delta,lambda] = discrep(U,s,V,b,delta,x_0)
+      [x_delta,lambda] = discrep(U,sm,X,b,delta,x_0)  ,  sm = [sigma,mu]
+     
+      Least squares minimization with a quadratic inequality constraint:
+         min || x - x_0 ||       subject to   || A x - b || <= delta
+         min || L (x - x_0) ||   subject to   || A x - b || <= delta
+      where x_0 is an initial guess of the solution, and delta is a
+      positive constant.  Requires either the compact SVD of A saved as
+      U, s, and V, or part of the GSVD of (A,L) saved as U, sm, and X.
+      The regularization parameter lambda is also returned.
+     
+      If delta is a vector, then x_delta is a matrix such that
+         x_delta = [ x_delta(1), x_delta(2), ... ] .
+     
+      If x_0 is not specified, x_0 = 0 is used.
 
-    # % Reference: V. A. Morozov, "Methods for Solving Incorrectly Posed
-    # % Problems", Springer, 1984; Chapter 26.
+      Reference: V. A. Morozov, "Methods for Solving Incorrectly Posed
+      Problems", Springer, 1984; Chapter 26.
 
-    # % Per Christian Hansen, IMM, August 6, 2007.
-
+    """
     #  Initialization.
     m = U.shape[0]
     n = V.shape[0]
@@ -117,32 +117,33 @@ def discrep(U, s, V, b, delta, x_0 = None):
 
 
 def newton(lambda_0, delta, s, beta, omega, delta_0):
-    # function lambda = newton(lambda_0,delta,s,beta,omega,delta_0)
-    # %NEWTON Newton iteration (utility routine for DISCREP).
-    # %
-    # % lambda = newton(lambda_0,delta,s,beta,omega,delta_0)
-    # %
-    # % Uses Newton iteration to find the solution lambda to the equation
-    # %    || A x_lambda - b || = delta ,
-    # % where x_lambda is the solution defined by Tikhonov regularization.
-    # %
-    # % The initial guess is lambda_0.
-    # %
-    # % The norm || A x_lambda - b || is computed via s, beta, omega and
-    # % delta_0.  Here, s holds either the singular values of A, if L = I,
-    # % or the c,s-pairs of the GSVD of (A,L), if L ~= I.  Moreover,
-    # % beta = U'*b and omega is either V'*x_0 or the first p elements of
-    # % inv(X)*x_0.  Finally, delta_0 is the incompatibility measure.
+    """
+    function lambda = newton(lambda_0,delta,s,beta,omega,delta_0)
+     NEWTON Newton iteration (utility routine for DISCREP).
+     
+      lambda = newton(lambda_0,delta,s,beta,omega,delta_0)
+     
+      Uses Newton iteration to find the solution lambda to the equation
+         || A x_lambda - b || = delta ,
+      where x_lambda is the solution defined by Tikhonov regularization.
+     
+      The initial guess is lambda_0.
+     
+      The norm || A x_lambda - b || is computed via s, beta, omega and
+      delta_0.  Here, s holds either the singular values of A, if L = I,
+      or the c,s-pairs of the GSVD of (A,L), if L ~= I.  Moreover,
+      beta = U'*b and omega is either V'*x_0 or the first p elements of
+      inv(X)*x_0.  Finally, delta_0 is the incompatibility measure.
 
-    # % Reference: V. A. Morozov, "Methods for Solving Incorrectly Posed
-    # % Problems", Springer, 1984; Chapter 26.
+      Reference: V. A. Morozov, "Methods for Solving Incorrectly Posed
+      Problems", Springer, 1984; Chapter 26.
+    """
 
-
-    # % Set defaults.
+    #   Set defaults.
     thr = np.sqrt(np.finfo(float).eps)  # Relative stopping criterion.
     it_max = 50      # Max number of iterations.
 
-    # % Initialization.
+    #   Initialization.
     if lambda_0 < 0:
         raise ValueError('Initial guess lambda_0 must be nonnegative')
     p = s.shape[0]
@@ -152,9 +153,9 @@ def newton(lambda_0, delta, s, beta, omega, delta_0):
         s = s[:, 0] / s[:, 1]
     s2 = s**2
 
-    # % Use Newton's method to solve || b - A x ||^2 - delta^2 = 0.
-    # % It was found experimentally, that this formulation is superior
-    # % to the formulation || b - A x ||^(-2) - delta^(-2) = 0.
+    #   Use Newton's method to solve || b - A x ||^2 - delta^2 = 0.
+    #   It was found experimentally, that this formulation is superior
+    #   to the formulation || b - A x ||^(-2) - delta^(-2) = 0.
     lambda_ = lambda_0
     step = 1
     it = 0
@@ -170,12 +171,12 @@ def newton(lambda_0, delta, s, beta, omega, delta_0):
         step = (lambda_ / 4) * (np.dot(r.T, r) + (delta_0 + delta) * (delta_0 - delta)) / np.dot(z.T, r)
         lambda_ -= step
 
-        # % If lambda < 0 then restart with smaller initial guess.
+        #   If lambda < 0 then restart with smaller initial guess.
         if lambda_ < 0:
             lambda_ = 0.5 * lambda_0
             lambda_0 = 0.5 * lambda_0
 
-    # % Terminate with an error if too many iterations.
+    #   Terminate with an error if too many iterations.
     if abs(step) > thr * lambda_ and abs(step) > thr:
         raise ValueError('Max. number of iterations ({}) reached'.format(it_max))
     

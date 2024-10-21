@@ -1,31 +1,31 @@
 import numpy as np
 def i_laplace(n, example=1):
-#    
-# function [A,b,x,t] = i_laplace(n,example)
-# I_LAPLACE Test problem: inverse Laplace transformation.
-# %
-# % [A,b,x,t] = i_laplace(n,example)
-# %
-# % Discretization of the inverse Laplace transformation by means of
-# % Gauss-Laguerre quadrature.  The kernel K is given by
-# %    K(s,t) = exp(-s*t) ,
-# % and both integration intervals are [0,inf).
-# %
-# % The following examples are implemented, where f denotes
-# % the solution, and g denotes the right-hand side:
-# %    1: f(t) = exp(-t/2),        g(s) = 1/(s + 0.5)
-# %    2: f(t) = 1 - exp(-t/2),    g(s) = 1/s - 1/(s + 0.5)
-# %    3: f(t) = t^2*exp(-t/2),    g(s) = 2/(s + 0.5)^3
-# %    4: f(t) = | 0 , t <= 2,     g(s) = exp(-2*s)/s.
-# %              | 1 , t >  2
-# %
-# % The quadrature points are returned in the vector t.
+   
+    """
 
-# % Reference: J. M. Varah, "Pitfalls in the numerical solution of linear
-# % ill-posed problems", SIAM J. Sci. Stat. Comput. 4 (1983), 164-176.
+    I_LAPLACE Test problem: inverse Laplace transformation.
+    
+    [A,b,x,t] = i_laplace(n,example)
+    
+    Discretization of the inverse Laplace transformation by means of
+    Gauss-Laguerre quadrature.  The kernel K is given by
+        K(s,t) = exp(-s*t) ,
+    and both integration intervals are [0,inf).
+    
+    The following examples are implemented, where f denotes
+    the solution, and g denotes the right-hand side:
+        1: f(t) = exp(-t/2),        g(s) = 1/(s + 0.5)
+        2: f(t) = 1 - exp(-t/2),    g(s) = 1/s - 1/(s + 0.5)
+        3: f(t) = t^2*exp(-t/2),    g(s) = 2/(s + 0.5)^3
+        4: f(t) = | 0 , t <= 2,     g(s) = exp(-2*s)/s.
+                | 1 , t >  2
+    
+    The quadrature points are returned in the vector t.
 
-# % Per Christian Hansen, IMM, Oct. 21, 2006.
+    Reference: J. M. Varah, "Pitfalls in the numerical solution of linear
+    ill-posed problems", SIAM J. Sci. Stat. Comput. 4 (1983), 164-176.
 
+    """
     # Initialization.
     if n <= 0:
         raise ValueError('The order n must be positive')

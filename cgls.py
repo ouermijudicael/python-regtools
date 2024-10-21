@@ -1,30 +1,31 @@
 def cgls(A, b, k, reorth=0, s=None):
-# CGLS Conjugate gradient algorithm applied implicitly to the normal equations.
+    """
+    CGLS Conjugate gradient algorithm applied implicitly to the normal equations.
 
-# [X,rho,eta,F] = cgls(A,b,k,reorth,s)
+    [X,rho,eta,F] = cgls(A,b,k,reorth,s)
 
-# Performs k steps of the conjugate gradient algorithm applied
-# implicitly to the normal equations A'*A*x = A'*b.
+    Performs k steps of the conjugate gradient algorithm applied
+    implicitly to the normal equations A'*A*x = A'*b.
 
-# The routine returns all k solutions, stored as columns of
-# the matrix X.  The corresponding solution and residual norms
-# are returned in the vectors eta and rho, respectively.
+    The routine returns all k solutions, stored as columns of
+    the matrix X.  The corresponding solution and residual norms
+    are returned in the vectors eta and rho, respectively.
 
-# If the singular values s are also provided, cgls computes the
-# filter factors associated with each step and stores them
-# columnwise in the matrix F.
+    If the singular values s are also provided, cgls computes the
+    filter factors associated with each step and stores them
+    columnwise in the matrix F.
 
-# Reorthogonalization of the normal equation residual vectors
-# A'*(A*X(:,i)-b) is controlled by means of reorth:
-#    reorth = 0 : no reorthogonalization (default),
-#    reorth = 1 : reorthogonalization by means of MGS.
+    Reorthogonalization of the normal equation residual vectors
+    A'*(A*X(:,i)-b) is controlled by means of reorth:
+    reorth = 0 : no reorthogonalization (default),
+    reorth = 1 : reorthogonalization by means of MGS.
 
-# References: A. Bjorck, "Numerical Methods for Least Squares Problems",
-# SIAM, Philadelphia, 1996.
-# C. R. Vogel, "Solving ill-conditioned linear systems using the
-# conjugate gradient method", Report, Dept. of Mathematical
-# Sciences, Montana State University, 1987.
-
+    References: A. Bjorck, "Numerical Methods for Least Squares Problems",
+    SIAM, Philadelphia, 1996.
+    C. R. Vogel, "Solving ill-conditioned linear systems using the
+    conjugate gradient method", Report, Dept. of Mathematical
+    Sciences, Montana State University, 1987.
+    """
 
     import numpy as np
 

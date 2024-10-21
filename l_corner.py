@@ -4,36 +4,36 @@ from lcfun import lcfun
 from corner import corner
 from scipy.interpolate import splrep, splev, splder
 
-# function [reg_c,rho_c,eta_c] = l_corner(rho,eta,reg_param,U,s,b,method,M)
 def l_corner(rho, eta, reg_param, U=None, s=None, b=None, method='Tikh', M=None):
-#  L_CORNER Locate the "corner" of the L-curve.
-# 
-#  [reg_c,rho_c,eta_c] =
-#         l_corner(rho,eta,reg_param)
-#         l_corner(rho,eta,reg_param,U,s,b,method,M)
-#         l_corner(rho,eta,reg_param,U,sm,b,method,M) ,  sm = [sigma,mu]
-# 
-#  Locates the "corner" of the L-curve in log-log scale.
-# 
-#  It is assumed that corresponding values of || A x - b ||, || L x ||,
-#  and the regularization parameter are stored in the arrays rho, eta,
-#  and reg_param, respectively (such as the output from routine l_curve).
-# 
-#  If nargin = 3, then no particular method is assumed, and if
-#  nargin = 2 then it is issumed that reg_param = 1:length(rho).
-# 
-#  If nargin >= 6, then the following methods are allowed:
-#     method = 'Tikh'  : Tikhonov regularization
-#     method = 'tsvd'  : truncated SVD or GSVD
-#     method = 'dsvd'  : damped SVD or GSVD
-#     method = 'mtsvd' : modified TSVD,
-#  and if no method is specified, 'Tikh' is default.  If the Spline Toolbox
-#  is not available, then only 'Tikh' and 'dsvd' can be used.
-# 
-#  An eighth argument M specifies an upper bound for eta, below which
-#  the corner should be found.
+    """
+    L_CORNER Locate the "corner" of the L-curve.
 
-#  Per Christian Hansen, DTU Compute, January 31, 2015.
+    [reg_c,rho_c,eta_c] =
+            l_corner(rho,eta,reg_param)
+            l_corner(rho,eta,reg_param,U,s,b,method,M)
+            l_corner(rho,eta,reg_param,U,sm,b,method,M) ,  sm = [sigma,mu]
+
+    Locates the "corner" of the L-curve in log-log scale.
+
+    It is assumed that corresponding values of || A x - b ||, || L x ||,
+    and the regularization parameter are stored in the arrays rho, eta,
+    and reg_param, respectively (such as the output from routine l_curve).
+
+    If nargin = 3, then no particular method is assumed, and if
+    nargin = 2 then it is issumed that reg_param = 1:length(rho).
+
+    If nargin >= 6, then the following methods are allowed:
+        method = 'Tikh'  : Tikhonov regularization
+        method = 'tsvd'  : truncated SVD or GSVD
+        method = 'dsvd'  : damped SVD or GSVD
+        method = 'mtsvd' : modified TSVD,
+    and if no method is specified, 'Tikh' is default.  If the Spline Toolbox
+    is not available, then only 'Tikh' and 'dsvd' can be used.
+
+    An eighth argument M specifies an upper bound for eta, below which
+    the corner should be found.
+    """
+
 
     # Ensure that rho and eta are column vectors.
     rho = np.array(rho).flatten()

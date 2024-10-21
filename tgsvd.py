@@ -1,20 +1,21 @@
 import numpy as np
 
 def tgsvd(U, sm, X, b, k):
-    # Truncated GSVD regularization.
+    """
+    Truncated GSVD regularization.
 
-    # Parameters:
-    # U -- m x m matrix from GSVD
-    # sm -- p x 2 matrix containing sigma and mu (generalized singular values)
-    # X -- n x n matrix from GSVD
-    # b -- m x 1 vector (right-hand side)
-    # k -- integer or array of truncation parameter(s)
+    Parameters:
+    U -- m x m matrix from GSVD
+    sm -- p x 2 matrix containing sigma and mu (generalized singular values)
+    X -- n x n matrix from GSVD
+    b -- m x 1 vector (right-hand side)
+    k -- integer or array of truncation parameter(s)
 
-    # Returns:
-    # x_k -- solution vector(s) of size n x len(k)
-    # rho -- residual norms
-    # eta -- solution seminorms
-    
+    Returns:
+    x_k -- solution vector(s) of size n x len(k)
+    rho -- residual norms
+    eta -- solution seminorms
+    """
     # Initialization
     m = U.shape[0]
     n = X.shape[0]

@@ -1,16 +1,17 @@
 def pinit(W,A,b=None):
-    # Initialization for `preconditioning' of general-form problems.
-    # Here, W holds a basis for the null space of L.
-    #
-    # Determines the matrix T needed in the iterative routines for
-    # treating regularization problems in general form.
-    #
-    # If b is also specified then x_0, the component of the solution in
-    # the null space of L, is also computed.
-    #
-    # Reference: P. C. Hansen, "Rank-Deficient and Discrete Ill-Posed Problems.
-    # Numerical Aspects of Linear Inversion", SIAM, Philadelphia, 1997.
-    #
+    """
+    Initialization for `preconditioning' of general-form problems.
+    Here, W holds a basis for the null space of L.
+    
+    Determines the matrix T needed in the iterative routines for
+    treating regularization problems in general form.
+    
+    If b is also specified then x_0, the component of the solution in
+    the null space of L, is also computed.
+    
+    Reference: P. C. Hansen, "Rank-Deficient and Discrete Ill-Posed Problems.
+    Numerical Aspects of Linear Inversion", SIAM, Philadelphia, 1997.
+    """
 
     import numpy as np
     n,nu = W.shape

@@ -2,41 +2,39 @@ import numpy as np
 from plot_lc import plot_lc
 from l_corner import l_corner
 import matplotlib.pyplot as plt
-# function [reg_corner,rho,eta,reg_param] = l_curve(U,sm,b,method,L,V)
+
 def l_curve(U, sm, b, method='Tikh', L=None, V=None):  
-#  
-# L_CURVE Plot the L-curve and find its "corner".
-# 
-# [reg_corner,rho,eta,reg_param] =
-#                   l_curve(U,s,b,method)
-#                   l_curve(U,sm,b,method)  ,  sm = [sigma,mu]
-#                   l_curve(U,s,b,method,L,V)
-# 
-#  Plots the L-shaped curve of eta, the solution norm || x || or
-#  semi-norm || L x ||, as a function of rho, the residual norm
-#  || A x - b ||, for the following methods:
-#     method = 'Tikh'  : Tikhonov regularization   (solid line )
-#     method = 'tsvd'  : truncated SVD or GSVD     (o markers  )
-#     method = 'dsvd'  : damped SVD or GSVD        (dotted line)
-#     method = 'mtsvd' : modified TSVD             (x markers  )
-#  The corresponding reg. parameters are returned in reg_param.  If no
-#  method is specified then 'Tikh' is default.  For other methods use plot_lc.
-# 
-#  Note that 'Tikh', 'tsvd' and 'dsvd' require either U and s (standard-
-#  form regularization) computed by the function csvd, or U and sm (general-
-#  form regularization) computed by the function cgsvd, while 'mtvsd'
-#  requires U and s as well as L and V computed by the function csvd.
-# 
-#  If any output arguments are specified, then the corner of the L-curve
-#  is identified and the corresponding reg. parameter reg_corner is
-#  returned.  Use routine l_corner if an upper bound on eta is required.
+    """
+    L_CURVE Plot the L-curve and find its "corner".
 
-#  Reference: P. C. Hansen & D. P. O'Leary, "The use of the L-curve in
-#  the regularization of discrete ill-posed problems",  SIAM J. Sci.
-#  Comput. 14 (1993), pp. 1487-1503.
+    [reg_corner,rho,eta,reg_param] =
+                    l_curve(U,s,b,method)
+                    l_curve(U,sm,b,method)  ,  sm = [sigma,mu]
+                    l_curve(U,s,b,method,L,V)
 
-#  Per Christian Hansen, DTU Compute, October 27, 2010.
+    Plots the L-shaped curve of eta, the solution norm || x || or
+    semi-norm || L x ||, as a function of rho, the residual norm
+    || A x - b ||, for the following methods:
+        method = 'Tikh'  : Tikhonov regularization   (solid line )
+        method = 'tsvd'  : truncated SVD or GSVD     (o markers  )
+        method = 'dsvd'  : damped SVD or GSVD        (dotted line)
+        method = 'mtsvd' : modified TSVD             (x markers  )
+    The corresponding reg. parameters are returned in reg_param.  If no
+    method is specified then 'Tikh' is default.  For other methods use plot_lc.
 
+    Note that 'Tikh', 'tsvd' and 'dsvd' require either U and s (standard-
+    form regularization) computed by the function csvd, or U and sm (general-
+    form regularization) computed by the function cgsvd, while 'mtvsd'
+    requires U and s as well as L and V computed by the function csvd.
+
+    If any output arguments are specified, then the corner of the L-curve
+    is identified and the corresponding reg. parameter reg_corner is
+    returned.  Use routine l_corner if an upper bound on eta is required.
+
+    Reference: P. C. Hansen & D. P. O'Leary, "The use of the L-curve in
+    the regularization of discrete ill-posed problems",  SIAM J. Sci.
+    Comput. 14 (1993), pp. 1487-1503.
+    """
     #  Set defaults.
     # if (nargin==3), method='Tikh'; end  % Tikhonov reg. is default.
     npoints = 200  # Number of points on the L-curve for Tikh and dsvd.

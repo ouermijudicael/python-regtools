@@ -1,36 +1,37 @@
 import numpy as np
 
 def splsqr(A, b, lambda_, Vsp, maxit=None, tol=None, reorth= None):
-#SPLSQR Subspace preconditioned LSQR for discrete ill-posed problems.
-#
-# x = splsqr(A,b,lambda,Vsp,maxit,tol,reorth)
-#
-# Subspace preconditioned LSQR (SP-LSQR) for solving the Tikhonov problem
-#    min { || A x - b ||^2 + lambda^2 || x ||^2 }
-#   with a preconditioner based on the subspace defined by the columns of
-#   the matrix Vsp.  While not necessary, we recommend to use a matrix Vsp
-#   with orthonormal columns.
-#  
-#   The output x holds all the solution iterates as columns, and the last
-#   iterate x(:,end) is the best approximation to x_lambda.
-#  
-#   The parameter maxit is the maximum allowed number of iterations (default
-#   value is maxit = 300).  The parameter tol is used a stopping criterion
-#   for the norm of the least squares residual relative to the norm of the
-#   right-hand side (default value is tol = 1e-12).
-#  
-#   A seventh input parameter reorth ~= 0 enforces MGS reorthogonalization
-#   of the Lanczos vectors.
+    """
+    SPLSQR Subspace preconditioned LSQR for discrete ill-posed problems.
 
-#   This is a model implementation of SP-LSQR.  In a real implementation the
-#   Householder transformations should use LAPACK routines, only the final
-#   iterate should be returned, and reorthogonalization is not used.  Also,
-#   if Vsp represents a fast transformation (such as the DCT) then explicit
-#   storage of Vsp should be avoided.  See the reference for details.
+    x = splsqr(A,b,lambda,Vsp,maxit,tol,reorth)
 
-#   Reference: M. Jacobsen, P. C. Hansen and M. A. Saunders, "Subspace pre-
-#  conditioned LSQR for discrete ill-posed problems", BIT 43 (2003), 975-989.
+    Subspace preconditioned LSQR (SP-LSQR) for solving the Tikhonov problem
+    min { || A x - b ||^2 + lambda^2 || x ||^2 }
+    with a preconditioner based on the subspace defined by the columns of
+    the matrix Vsp.  While not necessary, we recommend to use a matrix Vsp
+    with orthonormal columns.
+    
+    The output x holds all the solution iterates as columns, and the last
+    iterate x(:,end) is the best approximation to x_lambda.
+    
+    The parameter maxit is the maximum allowed number of iterations (default
+    value is maxit = 300).  The parameter tol is used a stopping criterion
+    for the norm of the least squares residual relative to the norm of the
+    right-hand side (default value is tol = 1e-12).
+    
+    A seventh input parameter reorth ~= 0 enforces MGS reorthogonalization
+    of the Lanczos vectors.
 
+    This is a model implementation of SP-LSQR.  In a real implementation the
+    Householder transformations should use LAPACK routines, only the final
+    iterate should be returned, and reorthogonalization is not used.  Also,
+    if Vsp represents a fast transformation (such as the DCT) then explicit
+    storage of Vsp should be avoided.  See the reference for details.
+
+    Reference: M. Jacobsen, P. C. Hansen and M. A. Saunders, "Subspace pre-
+    conditioned LSQR for discrete ill-posed problems", BIT 43 (2003), 975-989.
+    """
 
     # Input check.
     if maxit is None:
